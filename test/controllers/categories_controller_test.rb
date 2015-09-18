@@ -24,4 +24,9 @@ class CategoriesControllerTest < ActionController::TestCase
     get :tags, slug_tags: tag.id
     assert_response :success
   end
+
+  test 'should get product_categories' do
+    get :product_categories, category_slug: 'category-1', slug_categories: "category-2/category-3/category-4", product_slug: 'product-1'
+    assert_response :success
+  end
 end

@@ -45,6 +45,7 @@ class Category < ActiveRecord::Base
                       where(enabled: true, visible: true)
                           .order(:priority)
                     }
+  scope :by_slug, ->(slug, locale = I18n.locale) { with_translations(locale).where(slug: slug) }
 
   before_save :set_defaults
 

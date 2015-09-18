@@ -79,4 +79,13 @@ class ProductTest < ActiveSupport::TestCase
       assert hash.key? "image_#{size}_src"
     end
   end
+
+  test 'by_slug' do
+    category = Product.create(name: 'potato with spaces', locale: :en, slug: 'potato-with-spaces')
+
+    assert category.persisted?
+    assert Product.by_slug('potato-with-spaces').exists?
+    assert Product.by_slug('potato-with-spaces', :en).exists?
+    assert_not Product.by_slug('potato-with-spaces', :es).exists?
+  end
 end

@@ -35,6 +35,19 @@ class CategoriesController < Frontend::CommonController
     end
   end
 
+  def product_categories
+    category    = Category.by_slug(params[:category_slug]).first
+    product     = Product.by_slug(params[:product_slug]).first
+    categories  = params[:slug_categories].split('/')
+
+    #Note: For now I am rendring the json only, later we can make the required changes.
+    render json: {
+      category: category.to_json,
+      product: product.to_json,
+      categories: categories.to_json
+    }
+  end
+
   protected
 
   def products_tags

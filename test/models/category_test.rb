@@ -56,4 +56,13 @@ class CategoryTest < ActiveSupport::TestCase
     assert hash.key? 'href'
     assert hash.key? 'children'
   end
+
+  test 'by_slug' do
+    category = Category.create(name: 'potato with spaces', locale: :en, slug: 'potato-with-spaces')
+
+    assert category.persisted?
+    assert Category.by_slug('potato-with-spaces').exists?
+    assert Category.by_slug('potato-with-spaces', :en).exists?
+    assert_not Category.by_slug('potato-with-spaces', :es).exists?
+  end
 end

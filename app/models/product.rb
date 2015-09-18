@@ -78,6 +78,8 @@ class Product < ActiveRecord::Base
                                     "%#{text}%", "%#{text}%").group('products.id')
                        }
 
+  scope :by_slug, ->(slug, locale = I18n.locale) { with_translations(locale).where(slug: slug) }
+
   def self.in_frontend(category, not_in_list = [])
     products = Product.joins(:products_categories)
 
